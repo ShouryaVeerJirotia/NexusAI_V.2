@@ -1,0 +1,24 @@
+{
+  "name": "ai-study-planner",
+  "version": "1.0.0",
+  "description": "Backend engine for Nexus AI Study Planner",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@google/generative-ai": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "keywords": [],
+  "author": "Shourya Veer Jirotia",
+  "license": "ISC"
+}
