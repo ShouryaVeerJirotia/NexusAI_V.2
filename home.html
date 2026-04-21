@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI| Cognitive Intelligence</title>
+    <script src="assets/js/nexus-api.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #020617;
+        }
+
+        /* 🎥 FULLSCREEN VIDEO BACKGROUND */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3;
+        }
+
+        /* Subtle dark tint over the video to make the glass pop */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.4);
+            z-index: -2;
+        }
+
+        /* 🪟 TRUE AERO-GLASS THEME */
+        .aero-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(35px) saturate(160%);
+            -webkit-backdrop-filter: blur(35px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .aero-glass:hover {
+            border-color: rgba(34, 211, 238, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-3px);
+        }
+
+        /* Buttons */
+        .btn-gradient {
+            background: linear-gradient(135deg, #22d3ee, #3b82f6);
+            color: #ffffff;
+            font-weight: 800;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+            transform: scale(1.03);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* Modal Overlay */
+        #manualOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #manualOverlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <div class="fixed top-0 left-0 w-full z-[100] border-b border-white/5 bg-black/20 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+            </span>
+            <span class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.2em]">
+                No Sign-up Required
+            </span>
+        </div>
+
+      <div class="hidden md:flex items-center gap-1.5 group cursor-pointer">
+    
+    <span class="text-white/30 text-[9px] font-thin uppercase tracking-[0.3em] group-hover:text-white/50 transition-colors">
+        Built for students
+    </span>
+
+    <a href="https://thesvj.netlify.app" target="_blank" class="relative inline-flex items-center gap-2 group">
+        
+        <span class="text-cyan-400 font-extrabold text-[10px] uppercase tracking-[0.4em] transition-all duration-300
+                     group-hover:text-white group-hover:scale-105"
+              style="text-shadow: 0 0 10px rgba(34, 211, 238, 0.7), 0 0 20px rgba(34, 211, 238, 0.4);">
+            by a student
+        </span>
+
+        <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_10px_#22d3ee]"></span>
+        </span>
+
+        <div class="absolute inset-0 -bottom-1 h-[1.5px] w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-[1px]"></div>
+    </a>
+</div>
+    </div>
+</div>
+
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="bestbg.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <nav class="fixed top-9 w-full z-50 p-6 flex justify-between items-center backdrop-blur-md">
+        <div class="text-2xl font-extrabold tracking-tight">Nexus <span
+                class="text-cyan-400 font-light italic">AI</span></div>
+        <div class="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest text-slate-200">
+            <a href="#features" class="hover:text-cyan-400 transition-colors">Features</a>
+            <a href="#why-us" class="hover:text-cyan-400 transition-colors">Why Us</a>
+            <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
+        </div>
+        <div>
+            <a href="index.html"
+                class="text-xs font-bold uppercase tracking-widest text-cyan-400 hover:text-cyan-300 transition-colors">Launch
+                Engine</a>
+        </div>
+    </nav>
+
+    <main class="min-h-screen flex flex-col items-center justify-center px-4 pt-20">
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-6 animate-pulse">
+                    <span
+                        class="px-3 py-1 border border-cyan-500/30 bg-cyan-500/10 rounded-full text-[10px] text-cyan-400 font-black uppercase tracking-[0.3em]">
+                        Efficiency Protocol v7.0
+                    </span>
+                </div>
+
+                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-[0.9] tracking-tighter drop-shadow-lg">
+                    The <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">Academic
+                        Weapon</span> Standard.
+                </h1>
+
+                <p
+                    class="text-slate-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed tracking-wide">
+                    Stop losing hours to planning. Condense a <span class="text-white border-b border-cyan-400">6-hour
+                        study session</span> into 45 minutes of tactical focus.
+                    <br>
+                    <span
+                        class="text-cyan-400/80 italic lowercase mt-4 block tracking-[0.4em] text-[10px] md:text-xs font-bold uppercase">
+                        Engineered for high-performance execution.
+                    </span>
+                </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="index.html" class="btn-gradient px-10 py-4 text-sm uppercase tracking-widest">
+                    Start Learning
+                </a>
+                <button onclick="toggleManual()"
+                    class="btn-outline px-10 py-4 text-sm font-bold uppercase tracking-widest backdrop-blur-md">
+                    View Manual
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <section id="features" class="py-24 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="aero-glass p-10">
+            <div class="text-4xl mb-6">🔮</div>
+            <h3 class="text-2xl font-bold mb-3">Neural Architecture</h3>
+            <p class="text-slate-200 text-sm leading-relaxed">Mapping your syllabus into a structured study path using
+                live Gemini 2.5 parsing.</p>
+        </div>
+        <div class="aero-glass p-10">
+            <div class="text-4xl mb-6">⏳</div>
+            <h3 class="text-2xl font-bold mb-3">Dynamic Timer</h3>
+            <p class="text-slate-200 text-sm leading-relaxed">Pomodoro intervals that automatically adjust based on
+                target stream Time.</p>
+        </div>
+        <div class="aero-glass p-10">
+            <div class="text-4xl mb-6">📝</div>
+            <h3 class="text-2xl font-bold mb-3">Smart Synthesis</h3>
+            <p class="text-slate-200 text-sm leading-relaxed">Instant conversion from execution blueprints to deep-dive
+                notes and analogies.</p>
+        </div>
+    </section>
+
+    <section id="why-us" class="py-24 bg-black/20 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-5xl font-black mb-16 text-center drop-shadow-md">System Feedback</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="aero-glass p-8">
+                    <p class="text-slate-100 text-sm leading-relaxed mb-6 italic">"The logic-mapping is incredible. It
+                        broke my entire Physics syllabus into highly executable steps."</p>
+                    <span class="text-cyan-300 text-xs font-extrabold uppercase tracking-widest">— Kaavyansh
+                        Singh</span>
+                </div>
+                <div class="aero-glass p-8">
+                    <p class="text-slate-100 text-sm leading-relaxed mb-6 italic">"The glass UI is beautiful. It
+                        genuinely feels like a high-end operating system for my brain."</p>
+                    <span class="text-cyan-300 text-xs font-extrabold uppercase tracking-widest">— Beta Tester</span>
+                </div>
+                <div class="aero-glass p-8">
+                    <p class="text-slate-100 text-sm leading-relaxed mb-6 italic">"This is an amazing platform that
+                        makes studying much organized. The AI-generated notes save a lot of time and help simplify
+                        complex topics.I also loved the built-in Pomodoro timer it helps maintain focus while studying.
+                        Would look forward to using this platform again and again !"</p>
+                    <span class="text-cyan-300 text-xs font-extrabold uppercase tracking-widest">— Suhani Vijay</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+        <h2 class="text-3xl md:text-5xl font-black mb-12 text-center drop-shadow-md">Frequently Asked</h2>
+        <div class="space-y-6">
+            <div class="aero-glass p-8">
+                <h4 class="text-xl font-bold text-white mb-3">How do I start?</h4>
+                <p class="text-slate-200 text-sm leading-relaxed">Click 'Enter Dashboard', define your target subjects
+                    and click generate.</p>
+            </div>
+            <div class="aero-glass p-8">
+                <h4 class="text-xl font-bold text-white mb-3">Is my data secure?</h4>
+                <p class="text-slate-200 text-sm leading-relaxed">Yes. Your API keys and generated study plans are
+                    kept on your device unless you explicitly send a personal key with a request.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6">
+        <div class="aero-glass p-12 max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-black mb-3">Neural Feedback</h2>
+            <p class="text-slate-300 text-sm mb-8">Help us refine the Nexus Engine.</p>
+
+            <textarea id="feedbackText"
+                class="w-full bg-black/20 border border-white/20 rounded-xl p-5 text-sm mb-8 h-40 focus:border-cyan-400 outline-none text-white resize-none"
+                placeholder="Describe logic errors or feature suggestions..."></textarea>
+
+            <button onclick="sendFeedback()" id="submitBtn"
+                class="btn-gradient px-12 py-4 text-xs uppercase tracking-widest w-full sm:w-auto">Transmit
+                Intel</button>
+            <p id="feedbackStatus" class="mt-4 text-xs font-bold uppercase tracking-widest hidden"></p>
+        </div>
+    </section>
+
+    <script>
+        async function sendFeedback() {
+            const feedback = document.getElementById('feedbackText').value.trim();
+            const status = document.getElementById('feedbackStatus');
+            const btn = document.getElementById('submitBtn');
+
+            if (!feedback) return alert("Intel field is empty.");
+
+            btn.innerText = "Transmitting...";
+            btn.disabled = true;
+
+            try {
+                await window.NexusApi.postJson('/api/feedback', {
+                    feedback,
+                    timestamp: new Date().toISOString()
+                });
+
+                status.innerText = "Intel Received. Connection Closed.";
+                status.classList.remove('hidden', 'text-red-400');
+                status.classList.add('text-cyan-400');
+                document.getElementById('feedbackText').value = "";
+            } catch (err) {
+                status.innerText = "Transmission Failed. Retry Link.";
+                status.classList.remove('hidden', 'text-cyan-400');
+                status.classList.add('text-red-400');
+            } finally {
+                btn.innerText = "Transmit Intel";
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+    <div id="manualOverlay" onclick="toggleManual()">
+        <div class="aero-glass p-12 max-w-3xl w-full mx-4 relative" onclick="event.stopPropagation()">
+            <button class="absolute top-6 right-6 text-white hover:text-cyan-400 text-2xl font-bold transition-colors"
+                onclick="toggleManual()">✖</button>
+            <h2
+                class="text-4xl font-black mb-10 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                User Manual</h2>
+            <div class="space-y-8">
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-2">1. Enter The Interface</h5>
+                    <p class="text-sm text-slate-200">Enter the interface by clicking on enter dashboard or launch
+                        engine.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-2">2. Target Definition</h5>
+                    <p class="text-sm text-slate-200">Add a 'Target Stream' (e.g., Maths), select your difficulty
+                        (Beg/Int/Adv), and hit 'Append Target'.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-2">3. Execute</h5>
+                    <p class="text-sm text-slate-200">Click 'Request AI Blueprint'. The engine will map out your logic
+                        and start the focus timer automatically. You can later refine, regenerate, and customize and
+                        download your blueprint as needed. Enter your API key if shared key is not Available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer
+        class="p-10 text-center text-[10px] text-slate-400 uppercase tracking-[0.3em] mt-10 border-t border-white/10 bg-black/40">
+        &copy; 2026 Nexus Systems | Engineered for Focus | Crafted with 💡 by
+        <a href="https://thesvj.netlify.app" target="_blank"
+            class="text-slate-300 hover:text-cyan-400 transition-all duration-300 decoration-cyan-500/30 underline-offset-4 hover:underline">
+            Shourya Veer Jirotia
+        </a>
+    </footer>
+
+    <script>
+        function toggleManual() {
+            const overlay = document.getElementById('manualOverlay');
+            overlay.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>
